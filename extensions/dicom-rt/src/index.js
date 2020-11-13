@@ -59,7 +59,6 @@ export default {
               const derivedDisplaySets = studyMetadata.getDerivedDatasets({
                 referencedSeriesInstanceUID: SeriesInstanceUID,
               });
-              console.debug(viewportData.Modality, derivedDisplaySets);
               return !(['RTSTRUCT', 'RTDOSE'].includes(viewportData.Modality) && derivedDisplaySets.length);
             }
 
