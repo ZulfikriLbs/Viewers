@@ -255,6 +255,9 @@ const RTPanel = ({
           const loadedSet = sets.find(
             set => set.SeriesInstanceUID === SeriesInstanceUID
           );
+
+          if (!loadedSet) return;
+
           return (
             <PanelSection
               key={SeriesInstanceUID}
@@ -265,7 +268,7 @@ const RTPanel = ({
               expanded={
                 isLoaded &&
                 loadedSet.SeriesInstanceUID ===
-                  state.selectedSet.SeriesInstanceUID
+                state.selectedSet.SeriesInstanceUID
               }
               onVisibilityChange={newVisibility => {
                 const module = cornerstoneTools.getModule('rtstruct');

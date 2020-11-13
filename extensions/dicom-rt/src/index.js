@@ -1,4 +1,7 @@
 import React from 'react';
+import { utils } from '@ohif/core';
+const { studyMetadataManager } = utils;
+
 import init from './init.js';
 import sopClassHandlerModule from './OHIFDicomRTStructSopClassHandler';
 import id from './id.js';
@@ -45,9 +48,18 @@ export default {
           icon: 'list',
           label: 'RTSTRUCT',
           target: 'rt-panel',
-          isDisabled: studies => {
+          isDisabled: (studies, viewportData) => {
             if (!studies) {
               return true;
+            }
+
+            if (viewportData) {
+              const { StudyInstanceUID, SeriesInstanceUID } = viewportData;
+              const studyMetadata = studyMetadataManager.get(StudyInstanceUID);
+              const derivedDisplaySets = studyMetadata.getDerivedDatasets({
+                referencedSeriesInstanceUID: SeriesInstanceUID,
+              });
+              return !(['RTSTRUCT', 'CT'].includes(viewportData.Modality) && derivedDisplaySets.length);
             }
 
             for (let i = 0; i < studies.length; i++) {
@@ -56,10 +68,9 @@ export default {
               if (study && study.series) {
                 for (let j = 0; j < study.series.length; j++) {
                   const series = study.series[j];
-                  if (
-                    /* Could be expanded to contain RTPLAN and RTDOSE information in the future */
-                    ['RTSTRUCT'].includes(series.Modality)
-                  ) {
+
+                  /* Could be expanded to contain RTPLAN and RTDOSE information in the future */
+                  if (['RTSTRUCT'].includes(series.Modality)) {
                     return false;
                   }
                 }

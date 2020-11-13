@@ -19,7 +19,6 @@ import UserManagerContext from '../context/UserManagerContext';
 import AppContext from '../context/AppContext';
 
 import './Viewer.css';
-import { finished } from 'stream';
 
 class Viewer extends Component {
   static propTypes = {
@@ -83,6 +82,8 @@ class Viewer extends Component {
         disassociate: this.disassociateStudy,
       },
     });
+
+    this.onButtonGroupsChangedHandler = this.onButtonGroupsChangedHandler.bind(this);
   }
 
   state = {
@@ -205,12 +206,19 @@ class Viewer extends Component {
         thumbnails: _mapStudiesToThumbnails(studies),
       });
     }
+
     if (isStudyLoaded && isStudyLoaded !== prevProps.isStudyLoaded) {
       const PatientID = studies[0] && studies[0].PatientID;
       const { currentTimepointId } = this;
 
       this.timepointApi.retrieveTimepoints({ PatientID });
       this.measurementApi.retrieveMeasurements(PatientID, [currentTimepointId]);
+    }
+  }
+
+  onButtonGroupsChangedHandler() {
+    if (this.state.isRightSidePanelOpen) {
+      this.setState({ isRightSidePanelOpen: false });
     }
   }
 
@@ -262,6 +270,8 @@ class Viewer extends Component {
         {/* TOOLBAR */}
         <ErrorBoundaryDialog context="ToolbarRow">
           <ToolbarRow
+            onButtonGroupsChanged={this.onButtonGroupsChangedHandler}
+            viewportData={this.props.viewports[this.props.activeViewportIndex]}
             isLeftSidePanelOpen={this.state.isLeftSidePanelOpen}
             isRightSidePanelOpen={this.state.isRightSidePanelOpen}
             selectedLeftSidePanel={
@@ -314,11 +324,11 @@ class Viewer extends Component {
                   activeIndex={this.props.activeViewportIndex}
                 />
               ) : (
-                <ConnectedStudyBrowser
-                  studies={this.state.thumbnails}
-                  studyMetadata={this.props.studies}
-                />
-              )}
+                  <ConnectedStudyBrowser
+                    studies={this.state.thumbnails}
+                    studyMetadata={this.props.studies}
+                  />
+                )}
             </SidePanel>
           </ErrorBoundaryDialog>
 
@@ -363,7 +373,7 @@ export default withDialog(Viewer);
  * @param {Study[]} studies
  * @param {DisplaySet[]} studies[].displaySets
  */
-const _mapStudiesToThumbnails = function(studies) {
+const _mapStudiesToThumbnails = function (studies) {
   return studies.map(study => {
     const { StudyInstanceUID } = study;
 

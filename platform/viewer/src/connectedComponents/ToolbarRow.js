@@ -33,10 +33,12 @@ class ToolbarRow extends Component {
     // NOTE: withDialog, withModal HOCs
     dialog: PropTypes.any,
     modal: PropTypes.any,
+    onButtonGroupsChanged: PropTypes.func
   };
 
   static defaultProps = {
     studies: [],
+    onButtonGroupsChanged: () => { }
   };
 
   constructor(props) {
@@ -54,19 +56,20 @@ class ToolbarRow extends Component {
     this.state = {
       toolbarButtons: toolbarButtonDefinitions,
       activeButtons: [],
+      buttonGroups: {
+        left: [],
+        right: [],
+      }
     };
 
     this.seriesPerStudyCount = [];
-
     this._handleBuiltIn = _handleBuiltIn.bind(this);
-
-    this.updateButtonGroups();
   }
 
   updateButtonGroups() {
     const panelModules = extensionManager.modules[MODULE_TYPES.PANEL];
 
-    this.buttonGroups = {
+    const buttonGroups = {
       left: [],
       right: [],
     };
@@ -86,7 +89,7 @@ class ToolbarRow extends Component {
         // Note: This does not cleanly handle `studies` prop updating with panel open
         const isDisabled =
           typeof menuOption.isDisabled === 'function' &&
-          menuOption.isDisabled(this.props.studies);
+          menuOption.isDisabled(this.props.studies, this.props.viewportData);
 
         if (hasActiveContext && !isDisabled) {
           const menuOptionEntry = {
@@ -95,46 +98,33 @@ class ToolbarRow extends Component {
             bottomLabel: menuOption.label,
           };
           const from = menuOption.from || 'right';
-
-          this.buttonGroups[from].push(menuOptionEntry);
+          buttonGroups[from].push(menuOptionEntry);
         }
       });
     });
 
     // TODO: This should come from extensions, instead of being baked in
-    this.buttonGroups.left.unshift({
+    buttonGroups.left.unshift({
       value: 'studies',
       icon: 'th-large',
       bottomLabel: this.props.t('Series'),
     });
+
+    if (JSON.stringify(buttonGroups) !== JSON.stringify(this.state.buttonGroups)) {
+      this.setState({ buttonGroups });
+      this.props.onButtonGroupsChanged(buttonGroups);
+    }
+  }
+
+  componentDidMount() {
+    this.updateButtonGroups();
   }
 
   componentDidUpdate(prevProps) {
     const activeContextsChanged =
       prevProps.activeContexts !== this.props.activeContexts;
 
-    const prevStudies = prevProps.studies;
-    const studies = this.props.studies;
-    const seriesPerStudyCount = this.seriesPerStudyCount;
-
-    let studiesUpdated = false;
-
-    if (prevStudies.length !== studies.length) {
-      studiesUpdated = true;
-    } else {
-      for (let i = 0; i < studies.length; i++) {
-        if (studies[i].series.length !== seriesPerStudyCount[i]) {
-          seriesPerStudyCount[i] = studies[i].series.length;
-
-          studiesUpdated = true;
-          break;
-        }
-      }
-    }
-
-    if (studiesUpdated) {
-      this.updateButtonGroups();
-    }
+    this.updateButtonGroups();
 
     if (activeContextsChanged) {
       this.setState(
@@ -181,7 +171,7 @@ class ToolbarRow extends Component {
         <div className="ToolbarRow">
           <div className="pull-left m-t-1 p-y-1" style={{ padding: '10px' }}>
             <RoundedButtonGroup
-              options={this.buttonGroups.left}
+              options={this.state.buttonGroups.left}
               value={this.props.selectedLeftSidePanel || ''}
               onValueChanged={onPressLeft}
             />
@@ -192,9 +182,9 @@ class ToolbarRow extends Component {
             className="pull-right m-t-1 rm-x-1"
             style={{ marginLeft: 'auto' }}
           >
-            {this.buttonGroups.right.length && (
+            {this.state.buttonGroups.right.length && (
               <RoundedButtonGroup
-                options={this.buttonGroups.right}
+                options={this.state.buttonGroups.right}
                 value={this.props.selectedRightSidePanel || ''}
                 onValueChanged={onPressRight}
               />
