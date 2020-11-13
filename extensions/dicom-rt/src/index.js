@@ -59,7 +59,8 @@ export default {
               const derivedDisplaySets = studyMetadata.getDerivedDatasets({
                 referencedSeriesInstanceUID: SeriesInstanceUID,
               });
-              return !(['RTSTRUCT', 'CT'].includes(viewportData.Modality) && derivedDisplaySets.length);
+              console.debug(viewportData.Modality, derivedDisplaySets);
+              return !(['RTSTRUCT', 'RTDOSE'].includes(viewportData.Modality) && derivedDisplaySets.length);
             }
 
             for (let i = 0; i < studies.length; i++) {
@@ -70,7 +71,7 @@ export default {
                   const series = study.series[j];
 
                   /* Could be expanded to contain RTPLAN and RTDOSE information in the future */
-                  if (['RTSTRUCT'].includes(series.Modality)) {
+                  if (['RTSTRUCT', 'RTDOSE'].includes(series.Modality)) {
                     return false;
                   }
                 }
