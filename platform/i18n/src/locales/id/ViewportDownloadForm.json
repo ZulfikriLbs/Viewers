@@ -1,0 +1,14 @@
+{
+  "emptyFilenameError": "Nama berkas tidak boleh kosong.",
+  "fileType": "Tipe Berkas",
+  "filename": "Nama Berkas",
+  "formTitle": "Please specify the dimensions, filename, and desired type for the output image. Silakan tentukan dimensi, nama berkas, dan tipe yang diinginkan untuk gambar keluaran",
+  "imageHeight": "Tinggi gambar (px)",
+  "imagePreview": "Pratinjau gambar",
+  "imageWidth": "Lebar gambar (px)",
+  "keepAspectRatio": "Keep aspect ratio",
+  "loadingPreview": "Membuka pratinjau gambar...",
+  "minHeightError": "Minimum tinggi yang valid adalah 100px.",
+  "minWidthError": "Minimun lebar yang validis 100px.",
+  "showAnnotations": "Tampilkan anotasi"
+}

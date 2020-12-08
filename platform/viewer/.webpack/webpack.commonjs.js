@@ -7,6 +7,7 @@ const webpackCommon = require('./../../../.webpack/webpack.commonjs.js');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const fontsToJavaScriptRule = require('./rules/fontsToJavaScript.js');
+const imageToJavaScriptRule = require('./rules/imageToJavaScript.js');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 // const
 const SRC_DIR = path.join(__dirname, '../src');
@@ -31,7 +32,7 @@ module.exports = (env, argv) => {
       filename: 'index.umd.js',
     },
     module: {
-      rules: [fontsToJavaScriptRule],
+      rules: [fontsToJavaScriptRule, imageToJavaScriptRule],
     },
     plugins: [
       // Clean output.path

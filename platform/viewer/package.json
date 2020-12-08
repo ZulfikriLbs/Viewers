@@ -89,6 +89,7 @@
     "redux-oidc": "3.1.x",
     "redux-thunk": "^2.3.0",
     "reselect": "^4.0.0",
+    "url-loader": "^4.1.1",
     "vtk.js": "^11.14.0"
   },
   "devDependencies": {

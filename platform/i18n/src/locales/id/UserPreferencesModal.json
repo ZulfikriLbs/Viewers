@@ -1,0 +1,9 @@
+{
+  "Cancel": "$t(Buttons:Cancel)",
+  "No hotkeys found": "Tidak ada tombol pintas yang dikonfigurasi untuk aplikasi ini. Tombol pintas bisa dikonfigurasi di dalam berkas app-config.js dalam aplikasi ini.",
+  "Reset to Defaults": "$t(Buttons:Reset to Defaults)",
+  "ResetDefaultMessage": "Pengaturan berhasil diatur ulang ke awal konfigurasi. <br /> Anda harus <strong>menyimpan</strong> untuk melakukan aksi ini.",
+  "Save": "$t(Buttons:Save)",
+  "SaveMessage": "Pengaturan disimpan",
+  "User Preferences": "Pengaturan user"
+}
