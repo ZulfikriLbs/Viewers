@@ -10,6 +10,7 @@ const {
   onAdded,
   onRemoved,
   onModified,
+  onUndo,
 } = OHIF.measurements.MeasurementHandlers;
 
 const MEASUREMENT_ACTION_MAP = {
@@ -18,6 +19,7 @@ const MEASUREMENT_ACTION_MAP = {
   modified: throttle(event => {
     return onModified(event);
   }, 300),
+  undo: onUndo,
 };
 
 /**

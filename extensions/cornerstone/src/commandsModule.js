@@ -141,6 +141,22 @@ const commandsModule = ({ servicesManager }) => {
         });
       });
     },
+    undoAnnotations: ({ viewports }) => {
+      OHIF.measurements.MeasurementHandlers.onUndo();
+
+      // measurementsToRemove.forEach(measurementData => {
+      //   console.log(measurementData);
+      //   OHIF.measurements.MeasurementHandlers.onRemoved({
+      //     detail: {
+      //       toolType: measurementData.toolType,
+      //       measurementData,
+      //     },
+      //   });
+      // });
+    },
+    redoAnnotations: ({ viewports }) => {
+      OHIF.measurements.MeasurementHandlers.onRedo();
+    },
     nextImage: ({ viewports }) => {
       const enabledElement = getEnabledElement(viewports.activeViewportIndex);
       scroll(enabledElement, 1);
@@ -367,6 +383,16 @@ const commandsModule = ({ servicesManager }) => {
     },
     clearAnnotations: {
       commandFn: actions.clearAnnotations,
+      storeContexts: ['viewports'],
+      options: {},
+    },
+    undoAnnotations: {
+      commandFn: actions.undoAnnotations,
+      storeContexts: ['viewports'],
+      options: {},
+    },
+    redoAnnotations: {
+      commandFn: actions.redoAnnotations,
       storeContexts: ['viewports'],
       options: {},
     },

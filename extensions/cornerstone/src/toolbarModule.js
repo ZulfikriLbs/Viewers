@@ -107,6 +107,22 @@ const definitions = [
     commandName: 'resetViewport',
   },
   {
+    id: 'Undo',
+    label: 'Undo',
+    icon: 'reset',
+    //
+    type: TOOLBAR_BUTTON_TYPES.COMMAND,
+    commandName: 'undoAnnotations',
+  },
+  {
+    id: 'Redo',
+    label: 'Redo',
+    icon: 'reset',
+    //
+    type: TOOLBAR_BUTTON_TYPES.COMMAND,
+    commandName: 'redoAnnotations',
+  },
+  {
     id: 'Cine',
     label: 'CINE',
     icon: 'youtube',

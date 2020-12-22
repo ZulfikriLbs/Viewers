@@ -50,7 +50,7 @@
 }
 
 .bottomLabel {
-  color: var(--text-secondary-color);
+  color: #ffffff;/*var(--text-secondary-color);*/
   font-size: 12px;
   font-weight: 500;
   line-height: 12px;
@@ -77,8 +77,8 @@
 }
 
 .roundedButtonWrapper.active .roundedButton {
-  background-color: var(--active-color);
-  border-color: var(--ui-border-color-active);
+  background-color: #ffffff;/*var(--active-color);*/
+  border-color: #ffffff;/*var(--ui-border-color-active);*/
   color: var(--ui-gray-dark);
   z-index: 2;
 }
