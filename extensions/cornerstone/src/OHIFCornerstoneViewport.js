@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import ConnectedCornerstoneViewport from './ConnectedCornerstoneViewport';
+import ViewportOverlayCustom from '../../viewport/ViewportOverlayCustom.js';
 import OHIF from '@ohif/core';
 import PropTypes from 'prop-types';
 import cornerstone from 'cornerstone-core';
@@ -232,6 +233,7 @@ class OHIFCornerstoneViewport extends Component {
     return (
       <>
         <ConnectedCornerstoneViewport
+          viewportOverlayComponent={ViewportOverlayCustom}
           viewportIndex={viewportIndex}
           imageIds={imageIds}
           imageIdIndex={currentImageIdIndex}

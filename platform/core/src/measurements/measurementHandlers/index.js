@@ -101,6 +101,8 @@ const MeasurementHandlers = {
 
   onUndo() {
     const event = undoEvent.pop()
+    if (!event)
+      return;
     redoEvent.push(event)
     const eventData = getEventData(event);
     const { toolType } = eventData;
@@ -126,6 +128,8 @@ const MeasurementHandlers = {
   },
   onRedo() {
     const event = redoEvent.pop()
+    if (!event)
+      return;
     undoEvent.push(event)
     const eventData = getEventData(event);
     const { toolType } = eventData;
