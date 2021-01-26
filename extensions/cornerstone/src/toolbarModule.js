@@ -109,7 +109,7 @@ const definitions = [
   {
     id: 'Undo',
     label: 'Undo',
-    icon: 'reset',
+    icon: 'undo',
     //
     type: TOOLBAR_BUTTON_TYPES.COMMAND,
     commandName: 'undoAnnotations',
@@ -117,7 +117,7 @@ const definitions = [
   {
     id: 'Redo',
     label: 'Redo',
-    icon: 'reset',
+    icon: 'redo',
     //
     type: TOOLBAR_BUTTON_TYPES.COMMAND,
     commandName: 'redoAnnotations',

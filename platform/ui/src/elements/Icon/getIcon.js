@@ -64,6 +64,7 @@ import plus from './icons/plus.svg';
 import powerOff from './icons/power-off.svg';
 import reset from './icons/reset.svg';
 import rotate from './icons/rotate.svg';
+import redo from './icons/redo-2.svg';
 import rotateRight from './icons/rotate-right.svg';
 import saveRegular from './icons/save-regular.svg';
 import scissors from './icons/scissors.svg';
@@ -85,6 +86,7 @@ import thList from './icons/th-list.svg';
 import times from './icons/times.svg';
 import trash from './icons/trash.svg';
 import unlink from './icons/unlink.svg';
+import undo from './icons/undo.svg';
 import user from './icons/user.svg';
 import youtube from './icons/youtube.svg';
 import eye from './icons/eye.svg';
@@ -170,6 +172,7 @@ const ICONS = {
   arrows,
   reset,
   rotate,
+  redo,
   'rotate-right': rotateRight,
   trash,
   unlink,
@@ -182,6 +185,7 @@ const ICONS = {
   liver,
   save: saveRegular,
   'envelope-square': envelopeSquare,
+  undo
 };
 
 /**
